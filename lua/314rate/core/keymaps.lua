@@ -9,6 +9,13 @@ local keymap = vim.keymap -- for conciseness
 -- use jk to exit insert mode
 keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 
+-- copy file
+keymap.set("n", "<C-c>", "<cmd>%y+<CR>", { desc = "General Copy whole file" })
+
+-- Comment
+keymap.set("n", "<leader>/", "gcc", { desc = "Toggle Comment", remap = true })
+keymap.set("v", "<leader>/", "gc", { desc = "Toggle comment", remap = true })
+
 -- save, quit
 keymap.set("n", "<leader>w", ":w<CR>")
 keymap.set("n", "<leader>c", ":q<CR>")
