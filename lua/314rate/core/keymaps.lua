@@ -24,7 +24,10 @@ keymap.set("n", "<leader>c", ":q<CR>")
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 
 -- delete single character without copying into register
--- keymap.set("n", "x", '"_x')
+keymap.set("n", "x", '"_x')
+
+-- search and replace
+vim.keymap.set("n", "<leader>sr", ":%s//g<Left><Left>", { desc = "Search and replace" })
 
 -- increment/decrement numbers
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
@@ -55,3 +58,7 @@ keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+
+-- Keymaps for changing Buffers
+vim.api.nvim_set_keymap("n", "<S-l>", ":BufferLineCycleNext<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<S-h>", ":BufferLineCyclePrev<CR>", { noremap = true, silent = true })

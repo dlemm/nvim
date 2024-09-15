@@ -12,9 +12,11 @@ return {
 			view = {
 				width = 35,
 				relativenumber = true,
+				side = "right",
 			},
 			-- change folder arrow icons
 			renderer = {
+				highlight_git = true,
 				indent_markers = {
 					enable = true,
 				},
@@ -24,6 +26,9 @@ return {
 							arrow_closed = "", -- arrow when folder is closed
 							arrow_open = "", -- arrow when folder is open
 						},
+					},
+					show = {
+						git = true,
 					},
 				},
 			},
@@ -41,6 +46,7 @@ return {
 				custom = { ".DS_Store" },
 			},
 			git = {
+				enable = true,
 				ignore = false,
 			},
 		})
