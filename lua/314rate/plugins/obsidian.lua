@@ -1,77 +1,105 @@
 return {
 	"epwalsh/obsidian.nvim",
 	version = "*", -- empfohlen, um die neueste stabile Version zu verwenden
-	lazy = true,
+	lazy = false,
 	ft = "markdown",
-	notes_subdir = "Fleeting",
-	-- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
-	completion = {
-		-- Set to false to disable completion.
-		nvim_cmp = true,
-		-- Trigger completion at 2 chars.
-		min_chars = 2,
-	},
-
-	-- Where to put new notes. Valid options are
-	--  * "current_dir" - put new notes in same directory as the current buffer.
-	--  * "notes_subdir" - put new notes in the default notes subdirectory.
-	new_notes_location = "notes_subdir",
-	disable_frontmatter = true,
-
-	-- Optional, customize how note IDs are generated given an optional title.
-	---@param title string|?
-	---@return string
-	note_id_func = function(title)
-		-- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
-		-- In this case a note with the title 'My new note' will be given an ID that looks
-		-- like '1657296016-my-new-note', and therefore the file name '1657296016-my-new-note.md'
-		local suffix = ""
-		if title ~= nil then
-			-- If title is given, transform it into valid file name.
-			suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-		else
-			-- If title is nil, just add 4 random uppercase letters to the suffix.
-			for _ = 1, 4 do
-				suffix = suffix .. string.char(math.random(65, 90))
-			end
-		end
-		return tostring(os.time()) .. "-" .. suffix
-	end,
-
-	-- Optional, customize how note file names are generated given the ID, target directory, and title.
-	---@param spec { id: string, dir: obsidian.Path, title: string|? }
-	---@return string|obsidian.Path The full path to the new note.
-	note_path_func = function(spec)
-		-- This is equivalent to the default behavior.
-		local path = spec.dir / tostring(spec.id)
-		return path:with_suffix(".md")
-	end,
-
-	mappings = {
-		-- overrides the 'gf' mapping to work on markdown/wiki links within your vault
-		["gf"] = {
-			action = function()
-				return require("obsidian").util.gf_passthrough()
-			end,
-			opts = { noremap = false, expr = true, buffer = true },
-		},
-	},
-
-	-- oder event = { "BufReadPre path/to/your/vault/**.md" },
 	dependencies = {
-		-- Wenn Sie nvim-cmp verwenden, fügen Sie dies hinzu:
-		"hrsh7th/nvim-cmp",
-		-- Wenn Sie telescope.nvim verwenden, fügen Sie dies hinzu:
-		"nvim-telescope/telescope.nvim",
-		-- Notwendige Abhängigkeit
-		"nvim-lua/plenary.nvim",
+		"hrsh7th/nvim-cmp", -- nvim-cmp for completion
+		"nvim-telescope/telescope.nvim", -- Telescope for note picker
+		"nvim-lua/plenary.nvim", -- Plenary as a required dependency
 	},
-	opts = {
-		workspaces = {
-			{
-				name = "zettelkasten",
-				path = "/Users/dennis.lemm/Repositories/private/zettelkasten/",
+	config = function()
+		require("obsidian").setup({
+			dir = "/Users/dennis.lemm/Repositories/private/zettelkasten", -- Setze den Pfad zu deinem Vault
+			notes_subdir = "01 - Fleeting",
+			completion = {
+				nvim_cmp = true,
+				min_chars = 2,
 			},
-		},
-	},
+			templates = {
+				folder = "05 - Templates",
+				date_format = "%Y-%m-%d-%a",
+				time_format = "%H:%M",
+			},
+			new_notes_location = "notes_subdir",
+			disable_frontmatter = false,
+			note_id_func = function(title)
+				local suffix = ""
+				if title ~= nil then
+					suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+				else
+					for _ = 1, 4 do
+						suffix = suffix .. string.char(math.random(65, 90))
+					end
+				end
+				return tostring(os.time()) .. "-" .. suffix
+			end,
+			note_path_func = function(spec)
+				local path = spec.dir / tostring(spec.id)
+				return path:with_suffix(".md")
+			end,
+			picker = {
+				name = "telescope.nvim",
+				note_mappings = {
+					new = "<C-x>",
+					insert_link = "<C-l>",
+				},
+				tag_mappings = {
+					tag_note = "<C-x>",
+					insert_tag = "<C-l>",
+				},
+			},
+			mappings = {
+				["gf"] = {
+					action = function()
+						return require("obsidian").util.gf_passthrough()
+					end,
+					opts = { noremap = false, expr = true, buffer = true },
+				},
+				["<leader>ch"] = {
+					action = function()
+						return require("obsidian").util.toggle_checkbox()
+					end,
+					opts = { buffer = true },
+				},
+				["<cr>"] = {
+					action = function()
+						return require("obsidian").util.smart_action()
+					end,
+					opts = { buffer = true, expr = true },
+				},
+			},
+			ui = {
+				enable = true,
+				update_debounce = 200,
+				max_file_length = 5000,
+				checkboxes = {
+					[" "] = { char = "󰄱", hl_group = "ObsidianTodo" },
+					["x"] = { char = "", hl_group = "ObsidianDone" },
+					[">"] = { char = "", hl_group = "ObsidianRightArrow" },
+					["~"] = { char = "󰰱", hl_group = "ObsidianTilde" },
+					["!"] = { char = "", hl_group = "ObsidianImportant" },
+				},
+				bullets = { char = "•", hl_group = "ObsidianBullet" },
+				external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
+				reference_text = { hl_group = "ObsidianRefText" },
+				highlight_text = { hl_group = "ObsidianHighlightText" },
+				tags = { hl_group = "ObsidianTag" },
+				block_ids = { hl_group = "ObsidianBlockID" },
+				hl_groups = {
+					ObsidianTodo = { bold = true, fg = "#f78c6c" },
+					ObsidianDone = { bold = true, fg = "#89ddff" },
+					ObsidianRightArrow = { bold = true, fg = "#f78c6c" },
+					ObsidianTilde = { bold = true, fg = "#ff5370" },
+					ObsidianImportant = { bold = true, fg = "#d73128" },
+					ObsidianBullet = { bold = true, fg = "#89ddff" },
+					ObsidianRefText = { underline = true, fg = "#c792ea" },
+					ObsidianExtLinkIcon = { fg = "#c792ea" },
+					ObsidianTag = { italic = true, fg = "#89ddff" },
+					ObsidianBlockID = { italic = true, fg = "#89ddff" },
+					ObsidianHighlightText = { bg = "#75662e" },
+				},
+			},
+		})
+	end,
 }
