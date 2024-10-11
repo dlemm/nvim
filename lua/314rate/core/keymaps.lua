@@ -29,6 +29,9 @@ keymap.set("n", "x", '"_x')
 -- search and replace
 vim.keymap.set("n", "<leader>sr", ":%s//g<Left><Left>", { desc = "Search and replace" })
 
+-- select complete file
+keymap.set("n", "<leader>a", "gg0vGg_", { desc = "Select all text including last word" })
+
 -- increment/decrement numbers
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
 keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement
