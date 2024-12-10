@@ -5,6 +5,7 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		{ "folke/neodev.nvim", opts = {} },
+		{ "j-hui/fidget.nvim", tag = "legacy" },
 	},
 	config = function()
 		-- import lspconfig plugin
@@ -78,11 +79,28 @@ return {
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
+		vim.diagnostic.config({
+			virtual_text = {
+				prefix = "●", -- Symbol für virtuelle Diagnosetexte
+				spacing = 2,
+			},
+			signs = true,
+			underline = true,
+			severity_sort = true,
+			float = {
+				border = "rounded",
+			},
+		})
+
 		-- astro --
+		local on_attach = function(client, bufnr)
+			-- Setze spezifische Einstellungen oder Keymaps für LSP hier
+			print("LSP attached to buffer", bufnr)
+		end
+
 		lspconfig["astro"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
-			filetypes = { "astro" },
 		})
 
 		mason_lspconfig.setup_handlers({
@@ -93,15 +111,13 @@ return {
 				})
 			end,
 			["svelte"] = function()
-				-- configure svelte server
 				lspconfig["svelte"].setup({
 					capabilities = capabilities,
 					on_attach = function(client, bufnr)
 						vim.api.nvim_create_autocmd("BufWritePost", {
 							pattern = { "*.js", "*.ts" },
 							callback = function(ctx)
-								-- Here use ctx.match instead of ctx.file
-								client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
+								client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.file })
 							end,
 						})
 					end,
@@ -142,6 +158,12 @@ return {
 							},
 							completion = {
 								callSnippet = "Replace",
+							},
+							workspace = {
+								library = vim.api.nvim_get_runtime_file("", true), -- Erweitert den Arbeitsbereich
+							},
+							telemetry = {
+								enable = false, -- Deaktiviert Telemetrie
 							},
 						},
 					},
