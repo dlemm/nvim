@@ -22,6 +22,12 @@ keymap.set("n", "x", '"_x')
 -- select complete file
 keymap.set("n", "<leader>a", "gg0vGg_", { desc = "Select all text including last word" })
 
+-- show all buffers
+keymap.set("n", "<leader>fb", ":FzfLua buffers<CR>", { desc = "Show all buffers" })
+keymap.set("n", "<leader>ff", ":FzfLua files<CR>", { desc = "Find Files" })
+keymap.set("n", "<leader>fr", ":FzfLua resume<CR>", { desc = "Find last file" })
+keymap.set("n", "<leader>fs", ":FzfLua live_grep<CR>", { desc = "Find in project" })
+
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" }) -- split window horizontally
@@ -59,4 +65,3 @@ vim.api.nvim_set_keymap("n", "<leader>dp", "<cmd>Lspsaga show_line_diagnostics<C
 
 -- Zeige Hover-Informationen
 vim.api.nvim_set_keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
-
