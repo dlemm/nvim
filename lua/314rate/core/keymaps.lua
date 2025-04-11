@@ -27,12 +27,14 @@ keymap.set("n", "<leader>fb", ":FzfLua buffers<CR>", { desc = "Show all buffers"
 keymap.set("n", "<leader>ff", ":FzfLua files<CR>", { desc = "Find Files" })
 keymap.set("n", "<leader>fr", ":FzfLua resume<CR>", { desc = "Find last file" })
 keymap.set("n", "<leader>fs", ":FzfLua live_grep<CR>", { desc = "Find in project" })
+keymap.set("n", "<leader>fw", ":FzfLua grep_cword<CR>", { desc = "Find word under cursor" })
+keymap.set("n", "<leader>db", ":%bd<CR>", { desc = "Delete all buffers" }) -- delete all buffers
 
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" }) -- split window horizontally
 keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
-
+keymap.set("n", "<leader>sn", ":vnew<CR>", { desc = "Open new empty vertical split" }) -- open new vertical split
 keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" }) -- open new tab
 keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
 
@@ -65,3 +67,10 @@ vim.api.nvim_set_keymap("n", "<leader>dp", "<cmd>Lspsaga show_line_diagnostics<C
 
 -- Zeige Hover-Informationen
 vim.api.nvim_set_keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
+
+-- Co-Pilot Accept completion
+vim.keymap.set("i", "<C-Right>", 'copilot#Accept("\\<CR>")', {
+	expr = true,
+	replace_keycodes = false,
+})
+vim.g.copilot_no_tab_map = true

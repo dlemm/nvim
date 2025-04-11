@@ -1,28 +1,122 @@
 return {
 	"saghen/blink.cmp",
-	-- optional: provides snippets for the snippet source
-	dependencies = "rafamadriz/friendly-snippets",
-
-	-- use a release tag to download pre-built binaries
-	version = "v0.*",
-	-- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-	-- build = 'cargo build --release',
-	-- If you use nix, you can build from source using latest nightly rust with:
-	-- build = 'nix run .#build-plugin',
+	dependencies = {
+		"rafamadriz/friendly-snippets",
+		"onsails/lspkind.nvim",
+	},
+	version = "*",
 
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
 	opts = {
-		keymap = {
-			preset = default,
-		},
+
 		appearance = {
-			use_nvim_cmp_as_default = true,
+			use_nvim_cmp_as_default = false,
 			nerd_font_variant = "mono",
 		},
+
+		completion = {
+			accept = { auto_brackets = { enabled = true } },
+			documentation = {
+				auto_show = true,
+				auto_show_delay_ms = 250,
+				treesitter_highlighting = true,
+				window = { border = "rounded" },
+			},
+
+			menu = {
+				border = "rounded",
+
+				cmdline_position = function()
+					if vim.g.ui_cmdline_pos ~= nil then
+						local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
+						return { pos[1] - 1, pos[2] }
+					end
+					local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
+					return { vim.o.lines - height, 0 }
+				end,
+
+				draw = {
+					columns = {
+						{ "kind_icon", "label", gap = 1 },
+						{ "kind" },
+					},
+					components = {
+						kind_icon = {
+							text = function(item)
+								local kind = require("lspkind").symbol_map[item.kind] or ""
+								return kind .. " "
+							end,
+							highlight = "CmpItemKind",
+						},
+						label = {
+							text = function(item)
+								return item.label
+							end,
+							highlight = "CmpItemAbbr",
+						},
+						kind = {
+							text = function(item)
+								return item.kind
+							end,
+							highlight = "CmpItemKind",
+						},
+					},
+				},
+			},
+		},
+
+		-- Meine Super-TAB Konfiguration
+		keymap = {
+			["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+			["<C-e>"] = { "hide", "fallback" },
+			["<CR>"] = { "accept", "fallback" },
+
+			["<Tab>"] = {
+				function(cmp)
+					return cmp.select_next()
+				end,
+				"snippet_forward",
+				"fallback",
+			},
+			["<S-Tab>"] = {
+				function(cmp)
+					return cmp.select_prev()
+				end,
+				"snippet_backward",
+				"fallback",
+			},
+
+			["<Up>"] = { "select_prev", "fallback" },
+			["<Down>"] = { "select_next", "fallback" },
+			["<C-p>"] = { "select_prev", "fallback" },
+			["<C-n>"] = { "select_next", "fallback" },
+			["<C-up>"] = { "scroll_documentation_up", "fallback" },
+			["<C-down>"] = { "scroll_documentation_down", "fallback" },
+		},
+
+		cmdline = {
+			enabled = false,
+		},
+
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer" },
+			providers = {
+				lsp = {
+					min_keyword_length = 2, -- Anzahl der Zeichen zum Auslösen des Anbieters
+					score_offset = 0, -- Score der Elemente erhöhen/verringern
+				},
+				path = {
+					min_keyword_length = 0,
+				},
+				snippets = {
+					min_keyword_length = 2,
+				},
+				buffer = {
+					min_keyword_length = 5,
+					max_items = 5,
+				},
+			},
 		},
 	},
-	opts_extend = { "sources.default" },
 }
