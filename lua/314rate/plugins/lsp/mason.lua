@@ -9,6 +9,7 @@ return {
 		local mason_lspconfig = require("mason-lspconfig")
 		local mason_tool_installer = require("mason-tool-installer")
 
+		-- Mason Setup
 		mason.setup({
 			ui = {
 				icons = {
@@ -19,6 +20,7 @@ return {
 			},
 		})
 
+		-- Mason LSPConfig Setup - nur Installation, keine Konfiguration
 		mason_lspconfig.setup({
 			ensure_installed = {
 				"ts_ls",
@@ -37,6 +39,7 @@ return {
 			},
 		})
 
+		-- Mason Tool Installer Setup
 		mason_tool_installer.setup({
 			ensure_installed = {
 				"prettier", -- prettier formatter

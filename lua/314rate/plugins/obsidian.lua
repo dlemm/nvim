@@ -10,7 +10,7 @@ return {
 	},
 	config = function()
 		require("obsidian").setup({
-			dir = "/Users/dennis.lemm/Documents/Zettelkasten", -- Setze den Pfad zu deinem Vault
+			dir = "/Users/dennis.lemm/repositories/Zettelkasten", -- Setze den Pfad zu deinem Vault
 			notes_subdir = "01 - Fleeting",
 			completion = {
 				nvim_cmp = true,
