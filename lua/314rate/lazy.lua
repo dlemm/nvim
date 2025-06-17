@@ -19,4 +19,18 @@ require("lazy").setup({ { import = "314rate.plugins" }, { import = "314rate.plug
   change_detection = {
     notify = false,
   },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "matchit",
+        "matchparen",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
 })

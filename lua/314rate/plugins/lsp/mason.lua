@@ -23,19 +23,18 @@ return {
 		-- Mason LSPConfig Setup - nur Installation, keine Konfiguration
 		mason_lspconfig.setup({
 			ensure_installed = {
-				"ts_ls",
+				"ts_ls", -- Nur dieser für TypeScript
 				"html",
 				"cssls",
 				"tailwindcss",
-				"svelte",
 				"jsonls",
 				"lua_ls",
-				"graphql",
+				"eslint", -- ESLint für Linting
 				"emmet_ls",
 				"prismals",
-				"pyright",
 				"astro",
 				"yamlls",
+				-- Entfernt: denols, vtsls, rome, svelte, graphql (falls nicht benötigt)
 			},
 		})
 

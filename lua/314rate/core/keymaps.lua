@@ -68,9 +68,3 @@ vim.api.nvim_set_keymap("n", "<leader>dp", "<cmd>Lspsaga show_line_diagnostics<C
 -- Zeige Hover-Informationen
 vim.api.nvim_set_keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
 
--- Co-Pilot Accept completion
-vim.keymap.set("i", "<C-Right>", 'copilot#Accept("\\<CR>")', {
-	expr = true,
-	replace_keycodes = false,
-})
-vim.g.copilot_no_tab_map = true

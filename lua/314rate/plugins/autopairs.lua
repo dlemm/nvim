@@ -2,7 +2,7 @@ return {
 	"windwp/nvim-autopairs",
 	event = { "InsertEnter" },
 	dependencies = {
-		"hrsh7th/nvim-cmp",
+		"saghen/blink.cmp",
 	},
 	config = function()
 		local autopairs = require("nvim-autopairs")
@@ -16,9 +16,15 @@ return {
 			},
 		})
 
-		local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-		local cmp = require("cmp")
-
-		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+		local blink_cmp = require("blink.cmp")
+		if blink_cmp then
+			blink_cmp.setup({
+				sources = {
+					completion = {
+						enabled_providers = { "lsp", "path", "snippets", "buffer", "autopairs" },
+					},
+				},
+			})
+		end
 	end,
 }
