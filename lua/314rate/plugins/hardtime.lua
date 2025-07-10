@@ -5,6 +5,9 @@ return {
 	opts = {
 		disabled_keys = {
 			["<Right>"] = false,
+			["<Left>"] = false,
+			["<Up>"] = false,
+			["<Down>"] = false,
 		},
 	},
 }

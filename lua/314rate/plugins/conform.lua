@@ -16,6 +16,8 @@ return {
 				html = { "prettier" },
 				json = { "prettier" },
 				yaml = { "prettier" },
+				templ = { "templ" },
+				go = { "goimports", "gofmt" },
 				markdown = { "prettier" },
 				graphql = { "prettier" },
 				liquid = { "prettier" },
