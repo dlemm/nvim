@@ -17,7 +17,7 @@ return {
 				json = { "prettier" },
 				yaml = { "prettier" },
 				templ = { "templ" },
-				go = { "goimports", "gofmt" },
+				go = { "goimports", "gofumpt" },
 				markdown = { "prettier" },
 				graphql = { "prettier" },
 				liquid = { "prettier" },
@@ -27,7 +27,7 @@ return {
 			format_on_save = {
 				lsp_fallback = true,
 				async = false,
-				timeout_ms = 1000,
+				timeout_ms = 500,
 			},
 		})
 
@@ -35,7 +35,7 @@ return {
 			conform.format({
 				lsp_fallback = true,
 				async = false,
-				timeout_ms = 1000,
+				timeout_ms = 500,
 			})
 		end, { desc = "Format file or range (in visual mode)" })
 	end,
