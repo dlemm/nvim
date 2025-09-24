@@ -13,7 +13,8 @@ return {
 				typescriptreact = { "prettier" },
 				svelte = { "prettier" },
 				css = { "prettier" },
-				html = { "prettier" },
+				html = { "prettier_global" },
+				gohtmltmpl = { "prettier_global" },
 				json = { "prettier" },
 				yaml = { "prettier" },
 				templ = { "templ" },
@@ -23,6 +24,13 @@ return {
 				liquid = { "prettier" },
 				lua = { "stylua" },
 				python = { "isort", "black" },
+			},
+			formatters = {
+				prettier_global = {
+					command = "/opt/homebrew/bin/prettier",
+					args = { "--stdin-filepath", "$FILENAME" },
+					stdin = true,
+				},
 			},
 			format_on_save = {
 				lsp_fallback = true,

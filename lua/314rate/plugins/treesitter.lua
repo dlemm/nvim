@@ -44,6 +44,10 @@ return {
 				"query",
 				"vimdoc",
 				"c",
+				"go", -- Für Go-Templates
+				"gomod", -- Für Go-Module
+				"gowork", -- Für Go-Workspaces
+				"gotmpl", -- Wichtig: Go-Template Parser
 			},
 			-- automatically install missing parsers when entering buffer
 			auto_install = true,

@@ -57,8 +57,6 @@ vim.api.nvim_set_keymap(
 	{ noremap = true, silent = true }
 )
 
-vim.api.nvim_set_keymap("n", "<leader>ont", "<cmd>ObsidianNewFromTemplate<CR>", { noremap = true, silent = true })
-
 -- LSPSaga keymaps for diagnostics
 vim.api.nvim_set_keymap("n", "<leader>dn", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
 
@@ -74,3 +72,6 @@ vim.keymap.set("i", "<C-right>", 'copilot#Accept("\\<CR>")', {
 	replace_keycodes = false,
 })
 vim.g.copilot_no_tab_map = true
+
+-- save file without formatting
+keymap.set("n", "<leader>w", ":noa w<CR>", { desc = "Save file without formatting" })
