@@ -18,7 +18,7 @@
 
 ## Prerequisites
 
-- **Neovim** >= 0.9.0
+- **Neovim** >= 0.11.4
 - **Git** for cloning and plugin management
 - **Node.js** >= 16 (for LSP servers and formatters)
 - **A Nerd Font** (I recommend [Lekton Nerd Font](https://github.com/ryanoasis/nerd-fonts))
@@ -107,46 +107,30 @@ The configuration is modular and organized as follows:
 │       ├── blink.lua         # Completion engine
 │       ├── cloak.lua         # Hide sensitive data
 │       ├── colorize.lua      # Color highlighting
-│       ├── comment.lua       # Smart commenting
 │       ├── conform.lua       # Code formatting
 │       ├── copilot.lua       # GitHub Copilot
-│       ├── cssvarviewer.lua  # CSS variable viewer
-│       ├── dressing.lua      # Better UI elements
-│       ├── fugitive.lua      # Git integration
 │       ├── fzf-lua.lua       # Fuzzy finder
-│       ├── gitsigns.lua      # Git signs in gutter
-│       ├── hardtime.lua      # Better vim habits
 │       ├── indent-blankline.lua # Indentation guides
 │       ├── init.lua          # Plugin manager setup
-│       ├── kanagawa.lua      # Kanagawa colorscheme
 │       ├── lazygit.lua       # Git GUI
 │       ├── linting.lua       # Code linting
 │       ├── lspsaga.lua       # Enhanced LSP UI
 │       ├── lualine.lua       # Statusline
-│       ├── luarocks.lua      # Lua package manager
-│       ├── markdown-preview.lua # Markdown preview
 │       ├── mdx.lua           # MDX support
 │       ├── noice.lua         # Better notifications
 │       ├── nvim-tree.lua     # File explorer
 │       ├── obsidian.lua      # Obsidian integration
-│       ├── onedark.lua       # One Dark colorscheme
-│       ├── pencil.lua        # Better writing
 │       ├── snacks.lua        # Utility functions
 │       ├── substitute.lua    # Better substitution
 │       ├── surround.lua      # Surround text objects
 │       ├── todo-comments.lua # Todo highlighting
-│       ├── toggleterm.lua    # Terminal management
 │       ├── tokyonight.lua    # Tokyo Night theme
 │       ├── treesitter.lua    # Syntax highlighting
 │       ├── trouble.lua       # Diagnostics panel
-│       ├── twilight.lua      # Focus mode
 │       ├── undotree.lua      # Undo history
 │       ├── vim-astro.lua     # Astro framework support
 │       ├── vim-coach.lua     # Vim learning
-│       ├── vim-maximizer.lua # Window maximizing
-│       ├── vim-visual-multi.lua # Multiple cursors
 │       ├── which-key.lua     # Keybinding help
-│       └── zen-mode.lua      # Distraction-free writing
 ```
 
 ## Customization
