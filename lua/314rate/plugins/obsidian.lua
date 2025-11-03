@@ -1,23 +1,23 @@
 return {
 	"epwalsh/obsidian.nvim",
-	version = "*", -- empfohlen, um die neueste stabile Version zu verwenden
+	version = "*",
 	lazy = false,
 	ft = "markdown",
 	dependencies = {
-		"hrsh7th/nvim-cmp", -- nvim-cmp for completion
-		"nvim-telescope/telescope.nvim", -- Telescope for note picker
-		"nvim-lua/plenary.nvim", -- Plenary as a required dependency
+		"hrsh7th/nvim-cmp",
+		"nvim-telescope/telescope.nvim",
+		"nvim-lua/plenary.nvim",
 	},
 	config = function()
 		require("obsidian").setup({
-			dir = "/Users/dennis.lemm/repositories/Zettelkasten", -- Setze den Pfad zu deinem Vault
-			notes_subdir = "01 - Fleeting",
+			dir = "/Users/dennis.lemm/repositories/Zettelkasten",
+			notes_subdir = "Inbox",
 			completion = {
 				nvim_cmp = true,
 				min_chars = 2,
 			},
 			templates = {
-				folder = "05 - Templates",
+				folder = "Templates",
 				date_format = "%Y-%m-%d-%a",
 				time_format = "%H:%M",
 			},
