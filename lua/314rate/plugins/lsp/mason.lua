@@ -23,7 +23,6 @@ return {
 		-- Mason LSPConfig Setup - nur Installation, keine Konfiguration
 		mason_lspconfig.setup({
 			ensure_installed = {
-				"ts_ls",
 				"html",
 				"cssls",
 				"tailwindcss",

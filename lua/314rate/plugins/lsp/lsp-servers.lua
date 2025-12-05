@@ -33,33 +33,6 @@ return {
 				})
 			end,
 
-			-- TypeScript/JavaScript Server für Monorepo
-			["ts_ls"] = function()
-				lspconfig["ts_ls"].setup({
-					capabilities = capabilities,
-					on_attach = on_attach,
-					-- WICHTIG: Root auf Monorepo-Ebene setzen für Path-Mappings
-					root_dir = function(fname)
-						-- Zuerst nach .git suchen (Monorepo-Root), dann tsconfig.json
-						return lspconfig.util.root_pattern(".git")(fname)
-							or lspconfig.util.root_pattern("tsconfig.json", "package.json")(fname)
-					end,
-					settings = {
-						typescript = {
-							preferences = {
-								includePackageJsonAutoImports = "auto",
-							},
-						},
-						javascript = {
-							preferences = {
-								includePackageJsonAutoImports = "auto",
-							},
-						},
-					},
-					single_file_support = false, -- Wichtig für Monorepos
-				})
-			end,
-
 			-- Svelte spezifische Konfiguration
 			["svelte"] = function()
 				lspconfig["svelte"].setup({
