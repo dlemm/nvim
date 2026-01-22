@@ -45,3 +45,11 @@ opt.swapfile = false
 
 -- set conceiled level for obsidian plugin
 opt.conceallevel = 1
+
+opt.grepprg = "rg --vimgrep --smart-case --hidden "
+	.. "--glob '!.git/*' "
+	.. "--glob '!node_modules/**' "
+	.. "--glob '!dist/**' "
+	.. "--glob '!build/**'"
+
+opt.grepformat = "%f:%l:%c:%m"
